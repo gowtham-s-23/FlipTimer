@@ -10,14 +10,14 @@ Always-on-top flip-clock countdown timer for Windows. Set a task, start the time
 
 1. Go to the latest release:  
    **[Download Flip Timer for Windows](https://github.com/gowtham-s-23/FlipTimer/releases/latest)**
-2. Download **`Flip Timer-Setup-1.0.0.exe`**
+2. Download **`Flip.Timer-Setup-1.0.0.exe`**
 3. Run the installer
 4. Launch **Flip Timer** from the Start menu
 
 The installer adds a Start menu shortcut and a desktop shortcut.
 
-> Direct installer link (v1.0.0):  
-> [`Flip Timer-Setup-1.0.0.exe`](https://github.com/gowtham-s-23/FlipTimer/releases/download/v1.0.0/Flip%20Timer-Setup-1.0.0.exe)
+> Direct installer download (v1.0.0):  
+> [**Flip.Timer-Setup-1.0.0.exe**](https://github.com/gowtham-s-23/FlipTimer/releases/download/v1.0.0/Flip.Timer-Setup-1.0.0.exe)
 
 ## Features
 
