@@ -5,4 +5,5 @@ contextBridge.exposeInMainWorld('flipTimer', {
   close: () => ipcRenderer.send('window-close'),
   setAlwaysOnTop: (enabled) => ipcRenderer.send('set-always-on-top', enabled),
   resizeForSetup: (expanded) => ipcRenderer.send('resize-for-setup', expanded),
+  resizeForTransparent: (enabled) => ipcRenderer.send('resize-for-transparent', enabled),
 });

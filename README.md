@@ -10,14 +10,14 @@ Always-on-top flip-clock countdown timer for Windows. Set a task, start the time
 
 1. Go to the latest release:  
    **[Download Flip Timer for Windows](https://github.com/gowtham-s-23/FlipTimer/releases/latest)**
-2. Download **`Flip.Timer-Setup-1.0.0.exe`**
+2. Download **`Flip.Timer-Setup-1.0.1.exe`**
 3. Run the installer
 4. Launch **Flip Timer** from the Start menu
 
 The installer adds a Start menu shortcut and a desktop shortcut.
 
-> Direct installer download (v1.0.0):  
-> [**Flip.Timer-Setup-1.0.0.exe**](https://github.com/gowtham-s-23/FlipTimer/releases/download/v1.0.0/Flip.Timer-Setup-1.0.0.exe)
+> Direct installer download (v1.0.1):  
+> [**Flip.Timer-Setup-1.0.1.exe**](https://github.com/gowtham-s-23/FlipTimer/releases/download/v1.0.1/Flip.Timer-Setup-1.0.1.exe)
 
 ## Features
 
@@ -25,10 +25,11 @@ The installer adds a Start menu shortcut and a desktop shortcut.
 - Flip-clock style countdown (hours : minutes : seconds)
 - Set and display your current task
 - Light / dark theme
+- Transparent overlay mode (clock + Start / Reset / Solid)
 - Quick presets: 5m, 15m, 25m, 45m, 1h
 - Sound chime when the timer finishes
 - Desktop notification when time is up (if allowed)
-- Remembers your last task, duration, and theme
+- Remembers your last task, duration, theme, and transparent preference
 
 ## How to use
 
@@ -39,7 +40,7 @@ The installer adds a Start menu shortcut and a desktop shortcut.
 5. Click **Start**
 6. When time is up, you’ll hear a chime
 
-Drag the window from the top bar to move it. Use the theme button to switch light/dark mode.
+Drag the window from the top bar to move it. Use the theme button to switch light/dark mode. Use the transparent button for a minimal overlay; click **Solid** to restore the full UI.
 
 ## Run from source (developers)
 
@@ -66,7 +67,7 @@ npm run dist
 The installer will be created at:
 
 ```text
-dist/Flip Timer-Setup-1.0.0.exe
+dist/Flip Timer-Setup-1.0.1.exe
 ```
 
 ## Project structure

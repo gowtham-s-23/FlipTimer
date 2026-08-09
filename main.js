@@ -71,6 +71,15 @@ ipcMain.on('resize-for-setup', (_event, expanded) => {
   const bounds = mainWindow.getBounds();
   mainWindow.setBounds({
     ...bounds,
-    height: expanded ? 420 : 280,
+    height: expanded ? 460 : 280,
+  });
+});
+
+ipcMain.on('resize-for-transparent', (_event, enabled) => {
+  if (!mainWindow) return;
+  const bounds = mainWindow.getBounds();
+  mainWindow.setBounds({
+    ...bounds,
+    height: enabled ? 200 : 280,
   });
 });

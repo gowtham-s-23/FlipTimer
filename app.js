@@ -8,6 +8,9 @@
     setupBtn: document.getElementById("setupBtn"),
     setupPanel: document.getElementById("setupPanel"),
     themeBtn: document.getElementById("themeBtn"),
+    transparentBtn: document.getElementById("transparentBtn"),
+    transparentToggle: document.getElementById("transparentToggle"),
+    exitTransparentBtn: document.getElementById("exitTransparentBtn"),
     minimizeBtn: document.getElementById("minimizeBtn"),
     closeBtn: document.getElementById("closeBtn"),
     taskInput: document.getElementById("taskInput"),
@@ -30,6 +33,7 @@
   let tickId = null;
   let task = "";
   let theme = "dark";
+  let transparent = false;
   let setupOpen = false;
   let currentDigits = { hours: "00", minutes: "00", seconds: "00" };
   let audioCtx = null;
@@ -194,6 +198,7 @@
       remaining,
       task,
       theme,
+      transparent,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   }
@@ -207,6 +212,7 @@
       if (typeof data.remaining === "number") remaining = data.remaining;
       if (typeof data.task === "string") task = data.task;
       if (data.theme === "light" || data.theme === "dark") theme = data.theme;
+      if (typeof data.transparent === "boolean") transparent = data.transparent;
     } catch {
       // ignore corrupt storage
     }
@@ -214,6 +220,24 @@
 
   function applyTheme() {
     document.documentElement.setAttribute("data-theme", theme);
+  }
+
+  function applyTransparent() {
+    document.documentElement.setAttribute("data-transparent", transparent ? "true" : "false");
+    els.transparentBtn.setAttribute("aria-pressed", transparent ? "true" : "false");
+    els.transparentBtn.classList.toggle("active", transparent);
+    els.transparentToggle.checked = transparent;
+
+    if (transparent && setupOpen) {
+      setupOpen = false;
+      els.setupPanel.hidden = true;
+    }
+
+    if (window.flipTimer?.resizeForTransparent) {
+      window.flipTimer.resizeForTransparent(transparent);
+    } else if (!transparent && window.flipTimer?.resizeForSetup) {
+      window.flipTimer.resizeForSetup(setupOpen);
+    }
   }
 
   function fillInputsFromDuration(seconds) {
@@ -305,6 +329,7 @@
   }
 
   function toggleSetup(force) {
+    if (transparent) return;
     setupOpen = typeof force === "boolean" ? force : !setupOpen;
     els.setupPanel.hidden = !setupOpen;
     if (window.flipTimer?.resizeForSetup) {
@@ -312,6 +337,7 @@
     }
     if (setupOpen) {
       fillInputsFromDuration(totalSeconds);
+      els.transparentToggle.checked = transparent;
       els.taskInput.focus();
     }
   }
@@ -334,9 +360,11 @@
 
   els.applyBtn.addEventListener("click", () => {
     if (!setDurationFromInputs()) return;
+    transparent = els.transparentToggle.checked;
     stopTicker();
     els.flipClock.classList.remove("done");
     updateTaskLabel();
+    applyTransparent();
     renderTime(remaining, false);
     updateStartButton();
     persist();
@@ -356,6 +384,31 @@
     theme = theme === "dark" ? "light" : "dark";
     applyTheme();
     persist();
+  });
+
+  function setTransparent(enabled) {
+    transparent = Boolean(enabled);
+    applyTransparent();
+    persist();
+  }
+
+  els.transparentBtn.addEventListener("click", () => {
+    setTransparent(!transparent);
+  });
+
+  els.exitTransparentBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setTransparent(false);
+  });
+
+  els.transparentToggle.addEventListener("change", () => {
+    setTransparent(els.transparentToggle.checked);
+  });
+
+  // Backup: double-click the clock to leave transparent mode
+  els.flipClock.addEventListener("dblclick", () => {
+    if (transparent) setTransparent(false);
   });
 
   els.minimizeBtn.addEventListener("click", () => {
@@ -380,6 +433,7 @@
   mountDigitPairs();
   loadState();
   applyTheme();
+  applyTransparent();
   updateTaskLabel();
   renderTime(remaining, false);
   updateStartButton();
